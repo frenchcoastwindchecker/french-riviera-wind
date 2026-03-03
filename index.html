@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Check real-time wind conditions on French Riviera beaches from Nice to Port Saint Louis">
+    <meta name="theme-color" content="#1e88e5">
+    <title>French Riviera Wind Checker</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" type="image/png" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌬️</text></svg>">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🌬️ French Riviera Wind Checker</h1>
+            <p class="subtitle">Real-time wind conditions • Nice to Port Saint Louis</p>
+        </header>
+
+        <main>
+            <!-- Input Section -->
+            <section class="input-section">
+                <div class="input-group">
+                    <label for="windThreshold">Minimum Wind Speed (knots)</label>
+                    <input type="number" id="windThreshold" value="15" min="0" max="50" step="0.5">
+                </div>
+                <button id="checkWindBtn" class="btn-primary">
+                    <span class="btn-icon">🔍</span>
+                    Check Wind Conditions
+                </button>
+            </section>
+
+            <!-- Loading Indicator -->
+            <div id="loadingIndicator" class="loading-indicator" style="display: none;">
+                <div class="spinner"></div>
+                <p>Scanning beaches...</p>
+                <p class="loading-progress" id="loadingProgress">0/105 beaches checked</p>
+            </div>
+
+            <!-- Results Section -->
+            <section id="resultsSection" class="results-section" style="display: none;">
+                <div class="results-header">
+                    <h2>Results</h2>
+                    <div class="results-stats">
+                        <span id="beachCount" class="stat-badge">0 beaches</span>
+                        <span id="avgSpeed" class="stat-badge">Avg: 0 kts</span>
+                        <span id="maxSpeed" class="stat-badge">Max: 0 kts</span>
+                    </div>
+                </div>
+
+                <div id="beachList" class="beach-list">
+                    <!-- Beach cards will be inserted here -->
+                </div>
+
+                <div class="wind-reference">
+                    <h3>💡 Wind Speed Reference</h3>
+                    <ul>
+                        <li><strong>0-5 knots:</strong> Calm</li>
+                        <li><strong>5-10 knots:</strong> Light breeze</li>
+                        <li><strong>10-15 knots:</strong> Moderate breeze (good for beginners)</li>
+                        <li><strong>15-20 knots:</strong> Fresh breeze (ideal for windsurfing)</li>
+                        <li><strong>20-25 knots:</strong> Strong breeze (experienced sailors)</li>
+                        <li><strong>25+ knots:</strong> Very strong (advanced only)</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Error Section -->
+            <section id="errorSection" class="error-section" style="display: none;">
+                <div class="error-message">
+                    <span class="error-icon">⚠️</span>
+                    <p id="errorMessage"></p>
+                </div>
+            </section>
+
+            <!-- No Results Section -->
+            <section id="noResultsSection" class="no-results-section" style="display: none;">
+                <div class="no-results-message">
+                    <span class="icon">🌊</span>
+                    <h3>No beaches found</h3>
+                    <p>No beaches have wind speeds above <span id="thresholdValue">0</span> knots.</p>
+                    <p>Try lowering the minimum speed threshold.</p>
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <p>Data from OpenWeatherMap • Updated in real-time</p>
+            <p class="install-prompt" id="installPrompt" style="display: none;">
+                <button id="installBtn" class="btn-install">📱 Install App</button>
+            </p>
+        </footer>
+    </div>
+
+    <script src="app.js"></script>
+    <script>
+        // Register service worker
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('service-worker.js')
+                .then(reg => console.log('Service Worker registered'))
+                .catch(err => console.log('Service Worker registration failed'));
+        }
+    </script>
+</body>
+</html>
