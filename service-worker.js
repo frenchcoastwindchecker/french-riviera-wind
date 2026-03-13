@@ -1,10 +1,12 @@
-const CACHE_NAME = 'french-riviera-wind-v1';
+const CACHE_NAME = 'french-riviera-wind-v2';
 const urlsToCache = [
   './',
   './index.html',
   './style.css',
   './app.js',
-  './manifest.json'
+  './manifest.json',
+  './icon-192.png',
+  './icon-512.png'
 ];
 
 // Install event - cache files
